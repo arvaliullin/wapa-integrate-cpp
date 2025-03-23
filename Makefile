@@ -1,5 +1,4 @@
-
-all: build
+all: bench
 
 build:
 	mkdir -p ./out
@@ -9,7 +8,13 @@ build:
 	-s EXPORTED_RUNTIME_METHODS=ccall \
 	-s MODULARIZE -o ./out/lib_cpp.out.js
 
-bench:
+bench: build
 	bun cmd/bench/main.js ./out/lib_cpp.out.wasm ./configs/wapa.json
 
-.PHONY: all build
+pkg: build
+	@echo "Выполняется сборка пакета... (pkg)"
+	mkdir -p out
+	cp configs/wapa.json out/wapa.json
+	zip -r pkg.zip out/*
+
+.PHONY: all build pkg
