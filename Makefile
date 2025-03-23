@@ -17,4 +17,8 @@ pkg: build
 	cp configs/wapa.json out/wapa.json
 	zip -r pkg.zip out/*
 
-.PHONY: all build pkg
+clean:
+	@echo "Очистка сгенерированных файлов... (clean)"
+	rm -rf out pkg.zip
+
+.PHONY: all build pkg clean
